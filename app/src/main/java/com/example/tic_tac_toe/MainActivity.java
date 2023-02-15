@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     // 0 = X
     // 1 = O
@@ -18,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     int []gameState = {2, 2, 2, 2, 2, 2, 2, 2, 2};
 
     int [][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8},
-                                 {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
-                                 {0, 4, 8}, {2, 4, 6}};
+            {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
+            {0, 4, 8}, {2, 4, 6}};
 
     boolean gameIsActive = true;
     String player1;
@@ -29,28 +31,49 @@ public class MainActivity extends AppCompatActivity {
     Intent getValuesFromLogin;
     Intent playerAndWinnerNamesSender;
     Intent getValuesFromWinnerShowingActivity;
+    TextView p1Name;
+    TextView p2Name;
+    TextView p1Score;
+    TextView p2Score;
+    Intent scoreReceiver;
+    int player1Score;
+    int player2Score;
+    boolean namesFound;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Tic-Tac-Toe");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Tic-Tac-Toe");
         getValuesFromLogin = getIntent();
+        scoreReceiver = getIntent();
         getValuesFromWinnerShowingActivity = getIntent();
+        p1Name = findViewById(R.id.p1Name);
+        p2Name = findViewById(R.id.p2Name);
+        p1Score = findViewById(R.id.p1Score);
+        p2Score = findViewById(R.id.p2Score);
+
+        if (scoreReceiver.getIntExtra("player1Score", 0) == 0 && scoreReceiver.getIntExtra("player2Score", 0) == 0) {
+            player1Score = 0;
+            player2Score = 0;
+        } else {
+            player1Score = scoreReceiver.getIntExtra("player1Score", 0);
+            player2Score = scoreReceiver.getIntExtra("player2Score", 0);
+        }
+
+        player1 = getValuesFromLogin.getStringExtra("player1Name");
+        player2 = getValuesFromLogin.getStringExtra("player2Name");
 
         status = findViewById(R.id.gameStatus);
 
-        if (getValuesFromWinnerShowingActivity == null) {
-            player1 = getValuesFromLogin.getStringExtra("player1Name");
-            player2 = getValuesFromLogin.getStringExtra("player2Name");
+        p1Score.setText("" + player1Score);
+        p2Score.setText("" + player2Score);
 
-            status.setText(player1 + "'s turn - Tap to Play!");
-        } else {
-            player1 = getValuesFromWinnerShowingActivity.getStringExtra("player1Name");
-            player2 = getValuesFromWinnerShowingActivity.getStringExtra("player2Name");
-            status.setText(player1 + "'s turn - Tap to Play!");
-        }
+        p1Name.setText(" " + player1);
+        p2Name.setText(" " + player2);
+
+        status.setText(player1 + "'s turn - Tap to Play!");
     }
 
     @SuppressLint("SetTextI18n")
@@ -70,11 +93,11 @@ public class MainActivity extends AppCompatActivity {
             if (activePlayer == 0) {
                 img.setImageResource(R.drawable.xre);
                 activePlayer = 1;
-                status.setText(player2 + "'s turn - Tap to play!");
+                status.setText(player2 + "'s turn - Tap to Play!");
             } else {
                 img.setImageResource(R.drawable.o);
                 activePlayer = 0;
-                status.setText(player1 + "'s turn - Tap to play!");
+                status.setText(player1 + "'s turn - Tap to Play!");
             }
             img.animate().translationYBy(1000f).setDuration(400);
         }
@@ -84,8 +107,12 @@ public class MainActivity extends AppCompatActivity {
                 gameIsActive = false;
                 if (gameState[winPosition[0]] == 0) {
                     winner = player1;
-                } else {
+                    player1Score++;
+                    p1Score.setText("" + player1Score);
+                } else{
                     winner = player2;
+                    player2Score++;
+                    p2Score.setText("" + player2Score);
                 }
 
                 status.setText("");
@@ -94,13 +121,16 @@ public class MainActivity extends AppCompatActivity {
                 playerAndWinnerNamesSender.putExtra("player1Name", player1);
                 playerAndWinnerNamesSender.putExtra("player2Name", player2);
                 playerAndWinnerNamesSender.putExtra("winnerName", winner);
+                playerAndWinnerNamesSender.putExtra("player1Score", player1Score);
+                playerAndWinnerNamesSender.putExtra("player2Score", player2Score);
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
 //                        resetGame(view);
 
                         startActivity(playerAndWinnerNamesSender);
-//                        finish();
+                        finish();
                     }
                 }, 400);
             }

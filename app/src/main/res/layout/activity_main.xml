@@ -17,14 +17,63 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/p1Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Player 1"
+            android:textColor="#FF0000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/p2Name"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/p2Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginRight="20dp"
+            android:text="Player 2"
+            android:textColor="#FF0000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/p1Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="4dp"
+            android:text="0"
+            android:textColor="#1900FF"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/p1Name" />
+
+        <TextView
+            android:id="@+id/p2Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:text="0"
+            android:textColor="#1900FF"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/p1Score"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="cursive"
         android:text="By Afwan Husaini"
         android:textColor="#0220C8"
@@ -36,7 +85,7 @@
         android:id="@+id/maingrid"
         android:layout_width="408dp"
         android:layout_height="452dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="30dp"
         android:contentDescription="our main grid"
         app:layout_constraintBottom_toBottomOf="@+id/verticalLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,8 +95,9 @@
 
     <LinearLayout
         android:id="@+id/verticalLayout"
-        android:layout_width="0dp"
-        android:layout_height="500dp"
+        android:layout_width="362dp"
+        android:layout_height="470dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:padding="5sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -184,7 +234,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
         android:backgroundTint="#00FFFFFF"
         android:backgroundTintMode="src_in"
