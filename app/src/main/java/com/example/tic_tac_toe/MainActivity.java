@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     String player1;
     String player2;
     TextView status;
-    String winner;
+    String winner = "";
     Intent getValuesFromLogin;
     Intent playerAndWinnerNamesSender;
     Intent getValuesFromWinnerShowingActivity;
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     Intent scoreReceiver;
     int player1Score;
     int player2Score;
-    boolean namesFound;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -109,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     winner = player1;
                     player1Score++;
                     p1Score.setText("" + player1Score);
-                } else{
+                } else {
                     winner = player2;
                     player2Score++;
                     p2Score.setText("" + player2Score);
@@ -127,18 +126,17 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        resetGame(view);
-
                         startActivity(playerAndWinnerNamesSender);
                         finish();
                     }
-                }, 400);
+                }, 1000);
             }
         }
+
+
     }
 
-
-
+    
     @SuppressLint("SetTextI18n")
     public void resetGame(View view) {
         gameIsActive = true;
@@ -149,14 +147,14 @@ public class MainActivity extends AppCompatActivity {
             gameState[i] = 2;
         }
 
-        ((ImageView)findViewById(R.id.imageView0)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView1)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView2)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView3)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView4)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView5)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView6)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView7)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView8)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView0)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView1)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView2)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView3)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView4)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView5)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView6)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView7)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView8)).setImageResource(0);
     }
 }

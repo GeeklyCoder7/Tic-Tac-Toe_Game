@@ -141,6 +141,7 @@
                 android:onClick="playerTap"
                 android:padding="20sp"
                 android:tag="2" />
+
         </LinearLayout>
 
         <LinearLayout
